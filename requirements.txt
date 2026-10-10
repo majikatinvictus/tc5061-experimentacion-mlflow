@@ -1,0 +1,23 @@
+# Dependencias del proyecto con versiones fijas (Python 3.12).
+
+# Seguimiento de experimentos
+mlflow==3.16.1
+skops==0.15.0          # formato con el que MLflow guarda el modelo de scikit-learn
+
+# Datos y modelo
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+
+# Gráficas: artefactos del script y notebook de exploración
+matplotlib==3.11.2
+seaborn==0.13.2
+
+# Kernel para ejecutar el notebook de exploración
+ipykernel==7.4.0
+
+# Formato y estilo del código (make lint, make format)
+ruff==0.17.0
+
+# El propio paquete del proyecto (telco_churn), instalado en modo editable
+-e .
