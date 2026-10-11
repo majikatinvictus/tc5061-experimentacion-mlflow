@@ -56,6 +56,28 @@ create_environment:
 # PROJECT RULES                                                                 #
 #################################################################################
 
+## Entrena el modelo con los valores por defecto
+.PHONY: train
+train:
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train
+
+## Corre las 8 corridas del experimento (la última repite la primera)
+.PHONY: experimentos
+experimentos:
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train --C 0.001
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train --C 100
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train --class-weight balanced
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train --l1-ratio 1 --solver saga
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train --C 0.1 --class-weight balanced
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train --C 0.1 --l1-ratio 1 --solver saga --class-weight balanced
+	$(PYTHON_INTERPRETER) -m telco_churn.modeling.train
+
+## Abre la interfaz de MLflow en http://127.0.0.1:5001
+.PHONY: ui
+ui:
+	mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5001
+
 
 
 #################################################################################
